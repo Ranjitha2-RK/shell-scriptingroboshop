@@ -23,7 +23,7 @@ VALIDATE(){ #functions receive input through args just like shell script args
     echo -e "$2 ... $R is failre $N" | tee -a $LOG_FILE
     exit 1
   else
-    echo -e "$2 ... $G success" | tee -a $LOG_FILE
+    echo -e "$2 ... $G success $N" | tee -a $LOG_FILE
   fi
 }
 
