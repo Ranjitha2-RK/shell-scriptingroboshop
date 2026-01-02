@@ -29,10 +29,10 @@ VALIDATE(){ # functions receive inputs through args just like shell script args
     fi
 }
 
-#### NodeJS #####
+##### NodeJS ####
 dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "Disabling NodeJS"
-dnf module enable nodejs:20 -y &>>$LOG_FILE
+dnf module enable nodejs:20 -y  &>>$LOG_FILE
 VALIDATE $? "Enabling NodeJS 20"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Installing NodeJS"
@@ -49,16 +49,16 @@ mkdir -p /app
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
-VALIDATE $? "Downloading the catalogue application"
+VALIDATE $? "Downloading catalogue application"
 
-cd /app
-VALIDATE $? "Changing app directory"
+cd /app 
+VALIDATE $? "Changing to app directory"
 
 rm -rf /app/*
 VALIDATE $? "Removing existing code"
 
 unzip /tmp/catalogue.zip &>>$LOG_FILE
-VALIDATE $? "Unzip catalogue"
+VALIDATE $? "unzip catalogue"
 
 npm install &>>$LOG_FILE
 VALIDATE $? "Install dependencies"
@@ -69,8 +69,6 @@ VALIDATE $? "Copy systemctl service"
 systemctl daemon-reload
 systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "Enable catalogue"
-systemctl start catalogue
-VALIDATE $? "Start catalogue"
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Copy mongo repo"
@@ -87,4 +85,4 @@ else
 fi
 
 systemctl restart catalogue
-VALIDATE $? "Restarted the catalogue"
+VALIDATE $? "Restarted catalogue"
